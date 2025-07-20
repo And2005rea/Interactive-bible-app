@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apokályptos - Red Social Bíblica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/styles.css">
+</head>
+<body>
+    <!-- Biblical floating animations -->
+    <div class="biblical-animation" style="font-size: 60px;">🕊️</div>
+    <div class="biblical-animation" style="font-size: 50px;">⭐</div>
+    <div class="biblical-animation" style="font-size: 45px;">✝️</div>
+    <div class="biblical-animation" style="font-size: 55px;">🙏</div>
+
+    <!-- Simplified Instagram-style Navigation -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <div class="logo-container">
+                <div class="logo" onclick="showSection('home')">Apokályptos</div>
+                <div class="logo-cross" onclick="showSection('home')">✝</div>
+            </div>
+            <div class="nav-icons">
+                <div class="nav-icon" onclick="showSection('login')" title="Iniciar Sesión">👤</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Login Section -->
+        <div id="login" class="section active">
+            <div class="auth-section">
+                <div class="auth-card">
+                    <h1 class="auth-title">Apokályptos</h1>
+                    <p class="motivational-text">
+                        Es ver por fin lo que siempre estuvo ahí. Cuando Dios llega a nuestra vida, todo cobra sentido: 
+                        el miedo se convierte en <span class="dynamic-text" id="dynamicText">PAZ</span>.
+                    </p>
+                    <h2 class="welcome-title">Bienvenidos</h2>
+                    
+                    <form onsubmit="return loginUser(event)">
+                        <div class="form-group">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-input" placeholder="tu.correo@ejemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-input" placeholder="Tu contraseña" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                    </form>
+                    
+                    <p class="auth-switch">
+                        ¿No tienes cuenta? <a href="#" onclick="showSection('register')">Regístrate aquí</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register" class="section">
+            <div class="auth-section">
+                <div class="auth-card">
+                    <h1 class="auth-title">Apokályptos</h1>
+                    <p class="motivational-text">
+                        Es ver por fin lo que siempre estuvo ahí. Cuando Dios llega a nuestra vida, todo cobra sentido: 
+                        el miedo se convierte en <span class="dynamic-text">PAZ</span>.
+                    </p>
+                    
+                    <form id="registerForm" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-input" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-input" placeholder="tu.correo@ejemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-input" placeholder="Tu contraseña" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmar Contraseña</label>
+                            <input type="password" class="form-input" placeholder="Confirma tu contraseña" required>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="showCharacterSelection()">Continuar</button>
+                    </form>
+                    
+                    <div class="character-selection" id="characterSelection">
+                        <h3 style="color: var(--lila); margin-bottom: 20px; font-size: 24px; font-weight: 600;">Elige tu personaje bíblico</h3>
+                        
+                        <div class="character-navigation">
+                            <button class="nav-arrow" onclick="previousCharacters()">‹</button>
+                            <div class="character-container">
+                                <div class="character-grid" id="characterGrid">
+                                    <!-- Characters will be dynamically loaded -->
+                                </div>
+                            </div>
+                            <button class="nav-arrow" onclick="nextCharacters()">›</button>
+                        </div>
+                        
+                        <button type="button" class="btn-primary" onclick="registerUser()" style="margin-top: 25px;">Crear Cuenta</button>
+                    </div>
+                    
+                    <p class="auth-switch">
+                        ¿Ya tienes cuenta? <a href="#" onclick="showSection('login')">Inicia sesión</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Section -->
+        <div id="home" class="section">
+            <div class="container">
+                <div class="search-input-group">
+                    <input type="text" class="search-input" placeholder="Busca versículos, palabras, temas..." onkeypress="handleHomeSearch(event)">
+                    <span class="search-icon" onclick="performHomeSearch()">🔍</span>
+                </div>
+
+                <div class="verse-card" id="verse1">
+                    <div class="verse-text">
+                        "En el principio creó Dios los cielos y la tierra."
+                    </div>
+                    <div class="verse-reference">Génesis 1:1</div>
+                    <div class="participants">1024 likes</div>
+                    <div class="verse-actions">
+                        <button class="action-btn btn-like" onclick="toggleLike(this, 'verse1')">
+                            <span class="like-icon">⭐</span> <span class="like-text">Like</span>
+                        </button>
+                        <button class="action-btn btn-etiquetar">
+                            🏷️ Etiquetar
+                        </button>
+                        <button class="action-btn btn-proverbio">
+                            💡 Proverbio
+                        </button>
+                        <button class="action-btn btn-compartir" onclick="openShareModal('verse1')">
+                            📤 Compartir
+                        </button>
+                    </div>
+                    
+                    <div class="comments-section">
+                        <textarea class="comment-input" placeholder="Escribe tu comentario..."></textarea>
+                        <button class="comment-btn" onclick="addComment(this, 'verse1')">Comentar</button>
+                        
+                        <div class="comments-container" id="comments-verse1">
+                            <div class="comment">
+                                <div class="comment-author">👑 David</div>
+                                <div class="comment-text">¡Qué hermoso versículo para empezar el día! Dios es el creador de todo.</div>
+                                <div class="comment-actions">
+                                    <button class="comment-action" onclick="likeComment(this)">👍 12</button>
+                                    <button class="comment-action" onclick="replyComment(this)">💬 Responder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More verse cards would go here -->
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div id="search" class="section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-input-group">
+                        <input type="text" class="search-input" id="searchQuery" placeholder="Buscar en las escrituras..." onkeypress="handleSearchEnter(event)">
+                        <span class="search-icon" onclick="performSearch()">🔍</span>
+                    </div>
+                    
+                    <div class="search-filters">
+                        <div class="filter-group">
+                            <input type="checkbox" id="letras-parciales" class="filter-checkbox">
+                            <label for="letras-parciales">Letras parciales</label>
+                        </div>
+                        <div class="filter-group">
+                            <input type="checkbox" id="palabras-exactas" class="filter-checkbox" checked>
+                            <label for="palabras-exactas">Palabras exactas</label>
+                        </div>
+                        <div class="filter-group">
+                            <input type="checkbox" id="frases-consecutivas" class="filter-checkbox">
+                            <label for="frases-consecutivas">Frases consecutivas</label>
+                        </div>
+                    </div>
+                    
+                    <div class="testament-buttons">
+                        <button class="testament-btn active" data-testament="all">TODO</button>
+                        <button class="testament-btn" data-testament="ot">AT - Antiguo Testamento</button>
+                        <button class="testament-btn" data-testament="nt">NT - Nuevo Testamento</button>
+                    </div>
+                    
+                    <div class="search-results" id="searchResults">
+                        <p style="text-align: center; color: var(--turquesa); font-size: 18px;">Ingresa una palabra o frase para buscar en las escrituras</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Translations Section -->
+        <div id="translations" class="section">
+            <div class="container">
+                <div class="translation-container">
+                    <div class="translation-header">
+                        <div class="translation-title">Traducciones Bíblicas</div>
+                        <div class="translation-reference" id="translationRef">Selecciona un versículo para ver su traducción</div>
+                    </div>
+                    
+                    <div class="translation-panels" id="translationPanels">
+                        <div class="translation-panel sync-scroll" id="spanishPanel">
+                            <div class="panel-title">📖 Español</div>
+                            <div class="panel-text" id="spanishText">
+                                Selecciona un versículo desde la búsqueda para ver su traducción completa aquí.
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-btn" onclick="playAudio('spanish')" id="playSpanish">
+                                    🔊 Escuchar en Español
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="translation-panel sync-scroll" id="originalPanel">
+                            <div class="panel-title" id="originalTitle">📜 Idioma Original</div>
+                            <div class="panel-text" id="originalText">
+                                Aquí aparecerá el texto en hebreo (Antiguo Testamento) o griego (Nuevo Testamento).
+                            </div>
+                            <div class="pronunciation" id="pronunciationText"></div>
+                            <div class="audio-controls">
+                                <button class="play-btn" onclick="playAudio('original')" id="playOriginal">
+                                    🔊 Escuchar Original
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notebook Section -->
+        <div id="notebook" class="section">
+            <div class="container">
+                <div class="notebook-container">
+                    <div class="notebook-content">
+                        <h2 class="notebook-title">✝️ Block de Notas Espiritual</h2>
+                        
+                        <div class="note-input-container">
+                            <textarea class="note-input" id="noteInput" placeholder="Escribe tus reflexiones, oraciones, versículos favoritos o pensamientos espirituales aquí..."></textarea>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button class="save-note-btn" onclick="saveNote()">💾 Guardar Nota</button>
+                            <div style="color: var(--texto-oscuro); font-weight: 500;">
+                                <strong>Palabras favoritas guardadas: </strong>
+                                <span style="color: var(--turquesa);">Paz, Amor, Fe, Esperanza, Gracia</span>
+                            </div>
+                        </div>
+
+                        <div class="saved-notes" id="savedNotes">
+                            <h3 style="color: var(--lila); margin-bottom: 20px; font-size: 24px;">📝 Mis Notas Guardadas</h3>
+                            
+                            <div class="saved-note" onclick="toggleNote(this)">
+                                <div class="note-actions-icons">
+                                    <button class="note-action-icon" onclick="editNote(this)" title="Editar">✏️</button>
+                                    <button class="note-action-icon delete" onclick="deleteNote(this)" title="Eliminar">🗑️</button>
+                                </div>
+                                <div class="note-header">
+                                    <div class="note-title">Reflexión sobre Juan 3:16</div>
+                                    <button class="note-toggle">📖</button>
+                                </div>
+                                <div class="note-content">
+                                    Hoy medité sobre el amor incondicional de Dios. Es increíble pensar que su amor es tan grande que dio a su único hijo por nosotros...
+                                </div>
+                                <div class="note-date">Guardada hace 2 días</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Notebook Button -->
+    <div class="floating-notebook" onclick="showSection('notebook')" title="Abrir Block de Notas">
+        📝
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="share-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">📤 Compartir Versículo</h3>
+                <button class="modal-close" onclick="closeShareModal()">×</button>
+            </div>
+            
+            <div class="verse-preview" id="versePreview">
+                <div class="verse-preview-text"></div>
+                <div class="verse-preview-ref"></div>
+            </div>
+            
+            <h4 style="color: var(--lila); margin-bottom: 15px;">Selecciona contactos:</h4>
+            <div class="contacts-list">
+                <div class="contact-item" onclick="toggleContact(this)">
+                    <div class="contact-avatar" style="background: linear-gradient(45deg, #FF6B35, #F39C12);">👑</div>
+                    <div class="contact-info">
+                        <div class="contact-name">David Rodríguez</div>
+                        <div class="contact-status">En línea</div>
+                    </div>
+                </div>
+                <!-- More contacts... -->
+            </div>
+            
+            <div class="share-buttons">
+                <button class="share-btn share-btn-secondary" onclick="closeShareModal()">Cancelar</button>
+                <button class="share-btn share-btn-primary" onclick="shareVerse()">Compartir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Note Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="edit-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">✏️ Editar Nota</h3>
+                <button class="modal-close" onclick="closeEditModal()">×</button>
+            </div>
+            
+            <input type="text" class="edit-note-title" id="editNoteTitle" placeholder="Título de la nota">
+            <textarea class="edit-note-input" id="editNoteContent" placeholder="Contenido de la nota..."></textarea>
+            
+            <div class="share-buttons">
+                <button class="share-btn share-btn-secondary" onclick="closeEditModal()">Cancelar</button>
+                <button class="share-btn share-btn-primary" onclick="saveEditedNote()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/scripts/main.js"></script>
+</body>
+</html>
